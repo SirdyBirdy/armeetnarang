@@ -1,0 +1,48 @@
+# Netlify config for armeetnarang.com
+# Only the /public folder is deployed, so README, this file, etc. are never served.
+
+[build]
+  publish = "public"
+
+# Serve links.html at /links (no ".html" in the shared URL)
+[[redirects]]
+  from   = "/links"
+  to     = "/links.html"
+  status = 200
+
+[[redirects]]
+  from   = "/links/"
+  to     = "/links.html"
+  status = 200
+
+# Security headers on every page
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options        = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy        = "strict-origin-when-cross-origin"
+    Permissions-Policy     = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+# HTML, JS and the manifest must always revalidate, so edits to content.js /
+# popup.js go live immediately after a deploy (Netlify's default; stated explicitly).
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Images change rarely: cache for a day
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
