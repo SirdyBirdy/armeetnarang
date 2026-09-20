@@ -115,6 +115,10 @@
 
     /* payment */
     .pay-sub { margin: 0 0 10px; }
+    .upi-app-wrap[hidden] { display: none; }
+    .upi-app-wrap { margin-bottom: 20px; }
+    .upi-app-wrap .btn { margin-bottom: 10px; }
+    .upi-app-wrap p { font-size: 0.85rem; color: var(--text-soft); }
     .qr { width: 300px; max-width: 100%; margin: 0 0 16px; border: 1px solid var(--sand); border-radius: 18px; overflow: hidden; background: #F1F5FE; }
     .qr img { display: block; width: 100%; height: auto; }
     .upi { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 20px; padding: 12px 14px 12px 16px; background: var(--white); border: 1px solid var(--sand); border-radius: 14px; }
@@ -243,7 +247,10 @@
   }).join('');
 
   const p = L.payment, pol = L.policy, ik = L.intake;
-  const hasPayInfo = !!(p.qrImage || p.upiId || p.bank);   // QR and/or UPI ID configured?
+  const hasPayInfo = !!(p.qrImage || p.upiId || p.bank);
+  const upiLink = p.upiId
+    ? `upi://pay?pa=${p.upiId}${p.upiName ? '&pn=' + encodeURIComponent(p.upiName) : ''}&cu=INR`
+    : '';   // QR and/or UPI ID configured?
 
   /* ── Render ── */
   document.getElementById('app').innerHTML = `
@@ -288,6 +295,11 @@
           </ul>
           ${hasPayInfo ? '' : `<a class="btn btn-sage pay-details" href="${wa(p.detailsWhatsapp)}" target="_blank" rel="noopener" data-track="payment details">${WA_ICON}${p.detailsLabel}</a>`}
           ${(p.qrImage || p.upiId) ? `<h3 class="pay-sub">Pay by UPI</h3>` : ''}
+          ${p.upiId && p.upiAppButton ? `
+            <div class="upi-app-wrap" hidden>
+              <a class="btn btn-sage" id="upi-app-btn" href="${upiLink}" data-track="pay with upi app">${p.upiAppButton}</a>
+              <p>${p.upiAppHint}</p>
+            </div>` : ''}
           ${p.qrNote && p.qrImage ? `<p style="margin-bottom:14px;font-size:0.92rem">${p.qrNote}</p>` : ''}
           ${p.qrImage ? `<figure class="qr"><img src="${p.qrImage}" alt="UPI QR code for ${p.upiName || 'payment'}. Scan with any UPI app." width="${p.qrWidth || 800}" height="${p.qrHeight || 1111}" loading="lazy" onerror="this.closest('.qr').remove()" /></figure>` : ''}
           ${p.upiId ? `
@@ -367,6 +379,11 @@
       <p class="fine">${SITE.footer.copyright}</p>
     </footer>
   `;
+
+  /* ── UPI app button: phones and tablets only (upi:// does nothing on desktop) ── */
+  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    document.querySelectorAll('.upi-app-wrap').forEach(el => el.hidden = false);
+  }
 
   /* ── Copy UPI ID ── */
   document.addEventListener('click', async e => {

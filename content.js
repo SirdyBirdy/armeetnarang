@@ -405,10 +405,15 @@ const SITE = {
     payment: {
       heading:  "Confirm with payment",
       note:     "Your session is confirmed once payment is received, at least 24 hours before your appointment.",
-      qrNote:   "Scan the QR with any UPI app, or copy the UPI ID.",   // only shown when qrImage is set
+      qrNote:   "Scan the QR with any UPI app.",   // only shown when qrImage is set
       upiId:    "narangarmeet-4@okicici",
       upiName:  "Armeet Narang",
       qrImage:  "images/payment-qr.png",
+      // "Pay with your UPI app" button: opens the client's UPI app with your ID filled in and the
+      // amount left blank for them to type. Shown on phones only. Set upiAppButton: "" to remove it.
+      upiAppButton: "Pay with your UPI app",
+      upiAppHint:   "Opens your UPI app, where you enter the amount. If nothing happens, copy the UPI ID below.",
+
       qrWidth:  800,    // pixel size of the image file (keeps the layout from jumping while it loads)
       qrHeight: 1111,
 
