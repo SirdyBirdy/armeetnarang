@@ -114,20 +114,32 @@
     .step .pay-details { margin-bottom: 26px; }
 
     /* payment */
-    .qr { width: 232px; max-width: 100%; margin: 4px 0 20px; padding: 12px; background: var(--white); border: 1px solid var(--sand); border-radius: 18px; }
-    .qr img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .pay-sub { margin: 0 0 10px; }
+    .qr { width: 300px; max-width: 100%; margin: 0 0 16px; border: 1px solid var(--sand); border-radius: 18px; overflow: hidden; background: #F1F5FE; }
+    .qr img { display: block; width: 100%; height: auto; }
     .upi { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 20px; padding: 12px 14px 12px 16px; background: var(--white); border: 1px solid var(--sand); border-radius: 14px; }
     .upi-label { display: block; font-size: 0.78rem; color: var(--text-soft); font-weight: 400; }
-    .upi-id { font-weight: 500; font-size: 1rem; color: var(--text); overflow-wrap: anywhere; }
+    .upi-id { font-weight: 500; font-size: 0.95rem; color: var(--text); overflow-wrap: anywhere; }
     .upi-name { display: block; font-size: 0.82rem; color: var(--text-mid); }
     .copy { flex-shrink: 0; font: 500 0.82rem var(--sans); color: var(--sage-ink); background: var(--warm); border: 1px solid var(--sand); border-radius: 100px; padding: 8px 16px; cursor: pointer; transition: var(--ease); }
     .copy:hover { background: var(--sand); }
 
-    .fees { list-style: none; margin: 0 0 22px; border-top: 1px solid var(--sand); }
+    .fees { list-style: none; margin: 0 0 30px; border-top: 1px solid var(--sand); }
     .fees li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--sand); }
     .fees .fee-name { color: var(--text); font-weight: 400; font-size: 0.95rem; }
     .fees .fee-sub { display: block; font-size: 0.82rem; color: var(--text-soft); }
     .fees .fee-amt { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; line-height: 1; white-space: nowrap; }
+    /* bank transfer: collapsed by default, UPI is the main route */
+    .bank { margin: 0 0 26px; background: var(--white); border: 1px solid var(--sand); border-radius: 14px; }
+    .bank summary { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; font-weight: 500; font-size: 0.95rem; cursor: pointer; list-style: none; color: var(--text); }
+    .bank summary::-webkit-details-marker { display: none; }
+    .bank summary::after { content: '+'; font-size: 1.35rem; line-height: 1; color: var(--text-soft); transition: transform var(--ease); }
+    .bank[open] summary::after { transform: rotate(45deg); }
+    .bank-rows { padding: 0 16px 6px; }
+    .bank-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--sand); }
+    .bank-row dt { font-size: 0.78rem; color: var(--text-soft); font-weight: 400; }
+    .bank-row dd { font-weight: 500; font-size: 0.95rem; color: var(--text); overflow-wrap: anywhere; }
+    .bank-row .copy { padding: 6px 14px; }
     .after-pay { font-size: 0.92rem; margin-bottom: 14px; }
     .other { margin-top: 16px; font-size: 0.88rem; color: var(--text-soft); }
     .other a { color: var(--sage-ink); font-weight: 500; text-underline-offset: 3px; }
@@ -231,7 +243,7 @@
   }).join('');
 
   const p = L.payment, pol = L.policy, ik = L.intake;
-  const hasPayInfo = !!(p.qrImage || p.upiId);   // QR and/or UPI ID configured?
+  const hasPayInfo = !!(p.qrImage || p.upiId || p.bank);   // QR and/or UPI ID configured?
 
   /* ── Render ── */
   document.getElementById('app').innerHTML = `
@@ -268,9 +280,16 @@
         <li class="step">
           <span class="step-mark" aria-hidden="true">2</span>
           <h3>${p.heading}</h3>
-          <p>${p.note}${p.qrImage && p.qrNote ? ' ' + p.qrNote : ''}</p>
+          <p>${p.note}</p>
+          <h3 class="pay-sub">Session fees</h3>
+          <ul class="fees">
+            ${SITE.fees.items.map(f => `
+              <li><span class="fee-name">${f.label}<span class="fee-sub">${f.sublabel}</span></span><span class="fee-amt">${f.amount}</span></li>`).join('')}
+          </ul>
           ${hasPayInfo ? '' : `<a class="btn btn-sage pay-details" href="${wa(p.detailsWhatsapp)}" target="_blank" rel="noopener" data-track="payment details">${WA_ICON}${p.detailsLabel}</a>`}
-          ${p.qrImage ? `<figure class="qr"><img src="${p.qrImage}" alt="UPI payment QR code" width="232" height="232" loading="lazy" onerror="this.closest('.qr').remove()" /></figure>` : ''}
+          ${(p.qrImage || p.upiId) ? `<h3 class="pay-sub">Pay by UPI</h3>` : ''}
+          ${p.qrNote && p.qrImage ? `<p style="margin-bottom:14px;font-size:0.92rem">${p.qrNote}</p>` : ''}
+          ${p.qrImage ? `<figure class="qr"><img src="${p.qrImage}" alt="UPI QR code for ${p.upiName || 'payment'}. Scan with any UPI app." width="${p.qrWidth || 800}" height="${p.qrHeight || 1111}" loading="lazy" onerror="this.closest('.qr').remove()" /></figure>` : ''}
           ${p.upiId ? `
             <div class="upi">
               <div>
@@ -278,16 +297,22 @@
                 <span class="upi-id">${p.upiId}</span>
                 ${p.upiName ? `<span class="upi-name">${p.upiName}</span>` : ''}
               </div>
-              <button type="button" class="copy" data-copy="${p.upiId}">Copy</button>
+              <button type="button" class="copy" data-copy="${p.upiId}" aria-label="Copy UPI ID">Copy</button>
             </div>` : ''}
-          <h3 style="margin-bottom:4px">Session fees</h3>
-          <ul class="fees">
-            ${SITE.fees.items.map(f => `
-              <li><span class="fee-name">${f.label}<span class="fee-sub">${f.sublabel}</span></span><span class="fee-amt">${f.amount}</span></li>`).join('')}
-          </ul>
+          ${p.bank ? `
+            <details class="bank">
+              <summary>${p.bank.heading}</summary>
+              <dl class="bank-rows">
+                <div class="bank-row"><div><dt>Account holder</dt><dd>${p.bank.holder}</dd></div></div>
+                <div class="bank-row"><div><dt>Account number</dt><dd>${p.bank.account}</dd></div><button type="button" class="copy" data-copy="${p.bank.account}" aria-label="Copy account number">Copy</button></div>
+                <div class="bank-row"><div><dt>IFSC</dt><dd>${p.bank.ifsc}</dd></div><button type="button" class="copy" data-copy="${p.bank.ifsc}" aria-label="Copy IFSC code">Copy</button></div>
+                <div class="bank-row"><div><dt>Branch</dt><dd>${p.bank.branch}</dd></div></div>
+                <div class="bank-row"><div><dt>Account type</dt><dd>${p.bank.type}</dd></div></div>
+              </dl>
+            </details>` : ''}
           <p class="after-pay">${p.afterPay}</p>
           <a class="btn btn-outline" href="${wa(p.afterPayWhatsapp)}" target="_blank" rel="noopener" data-track="send screenshot">${WA_ICON}Send payment screenshot</a>
-          ${hasPayInfo ? `<p class="other">${p.otherMethods} <a href="${wa(p.otherMethodsWhatsapp)}" target="_blank" rel="noopener" data-track="other payment">Message me for the details</a></p>` : ''}
+          ${(p.otherMethods) ? `<p class="other">${p.otherMethods} <a href="${wa(p.otherMethodsWhatsapp)}" target="_blank" rel="noopener" data-track="other payment">Message me for the details</a></p>` : ''}
         </li>
       </ol>
     </section>

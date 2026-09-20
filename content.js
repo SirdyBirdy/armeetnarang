@@ -393,29 +393,41 @@ const SITE = {
       heading:    "Fill in the intake form",
       note:       "It takes a few minutes and helps me prepare for our first session.",
       buttonLabel: "Open intake form",
-      url:        "https://forms.gle/zp5F6ac2MpFbzFbZ9",
+      url:        "https://forms.gle/1FXUTaa4MQxsue7NA",
     },
 
     /* Step 2
        upiId    : shown with a copy button. Leave "" to hide.
-       upiName  : payee name shown next to the UPI ID. Leave "" to hide.
-       qrImage  : path to your UPI QR image, e.g. "images/payment-qr.png".
-                  Add the file to /public/images/ first, then set this. "" hides it. */
+       upiName  : payee name shown under the UPI ID. Leave "" to hide.
+       qrImage  : path to your UPI QR screenshot in /public/images/. "" hides it.
+       bank     : bank-transfer details, shown in a collapsible block with copy
+                  buttons. Set bank: null to hide the whole block.               */
     payment: {
       heading:  "Confirm with payment",
       note:     "Your session is confirmed once payment is received, at least 24 hours before your appointment.",
-      qrNote:   "Scan the QR with any UPI app.",          // only shown when qrImage is set
-      upiId:    "",
-      upiName:  "",
-      qrImage:  "",
+      qrNote:   "Scan the QR with any UPI app, or copy the UPI ID.",   // only shown when qrImage is set
+      upiId:    "narangarmeet-4@okicici",
+      upiName:  "Armeet Narang",
+      qrImage:  "images/payment-qr.png",
+      qrWidth:  800,    // pixel size of the image file (keeps the layout from jumping while it loads)
+      qrHeight: 1111,
+
+      bank: {
+        heading: "Pay by bank transfer",
+        holder:  "ARMEET HARPALSINGH NARANG",
+        account: "06331000020790",
+        ifsc:    "HDFC0000633",
+        branch:  "NANA PETH",
+        type:    "Savings Account",
+      },
       afterPay: "After paying, please send a screenshot on WhatsApp so I can confirm your slot.",
       afterPayWhatsapp: "Hi. I've made the payment. Sharing the screenshot to confirm my slot.",
       // Shown INSTEAD of the QR/UPI block while both qrImage and upiId are empty:
       detailsLabel:    "Get payment details",
       detailsWhatsapp: "Hi. Could you share the payment details for my session?",
       // Shown under the QR/UPI block:
-      otherMethods: "Prefer bank transfer or card?",
-      otherMethodsWhatsapp: "Hi. I'd like to pay by bank transfer / card. Could you share the details?",
+      otherMethods: "Prefer to pay by card?",
+      otherMethodsWhatsapp: "Hi. I'd like to pay by card. Could you share the details?",
     },
 
     /* Cancellation policy. "share" is the refund percentage shown large. */
