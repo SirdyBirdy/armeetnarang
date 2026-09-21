@@ -10,11 +10,25 @@
   to     = "/links.html"
   status = 200
 
-# /links/ (trailing slash) -> /links, so relative file paths keep working
+# Other spellings all land on /links (a real redirect, so the address bar shows /links
+# and the page's relative file paths keep working)
 [[redirects]]
   from   = "/links/"
   to     = "/links"
   status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/link"
+  to     = "/links"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/link/"
+  to     = "/links"
+  status = 301
+  force  = true
 
 # Icons moved to /favicons/. Crawlers and old browsers still ask for these two at the site root.
 [[redirects]]
