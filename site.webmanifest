@@ -2,12 +2,12 @@
   "name": "Armeet Narang",
   "short_name": "Armeet Narang",
   "description": "Psychologist & Psychotherapist in Pune",
-  "start_url": "/",
+  "start_url": "./",
   "display": "browser",
   "background_color": "#F9F6F1",
   "theme_color": "#2A2420",
   "icons": [
-    { "src": "/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Page not found | Armeet Narang</title>
   <meta name="robots" content="noindex" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;500&display=swap" rel="stylesheet" />
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -23,8 +22,15 @@
   <main>
     <h1>That page isn't here.</h1>
     <p>The link may be old or mistyped. The homepage has everything, including how to book.</p>
-    <a class="btn" href="/">Go to the homepage</a>
+    <a class="btn" id="home" href="/">Go to the homepage</a>
     <p class="alt">Or message me on <a href="https://api.whatsapp.com/send?phone=918793318765">WhatsApp</a>.</p>
   </main>
+  <script>
+    // On github.io/<repo>/ the site root is /<repo>/, not /
+    if (location.hostname.endsWith('github.io')) {
+      var seg = location.pathname.split('/')[1];
+      if (seg) document.getElementById('home').href = '/' + seg + '/';
+    }
+  </script>
 </body>
 </html>

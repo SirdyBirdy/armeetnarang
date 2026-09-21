@@ -775,6 +775,8 @@ function stars(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); }
 (function() {
   const id = SITE.googleAnalyticsId;
   if (!id || id === 'G-XXXXXXXXXX') return; // skip if not configured
+  // Only count real visitors: skip GitHub Pages / Netlify preview / localhost
+  if (new URL(SITE.meta.siteUrl).hostname.replace(/^www\./,'') !== location.hostname.replace(/^www\./,'')) return;
   const s = document.getElementById('ga-script');
   s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
   s.async = true;

@@ -364,7 +364,7 @@ const SITE = {
     note: "Not ready to book yet? The free discovery call is a separate 15-minute conversation. No commitment. Just a chance to ask questions and get a sense of whether this feels right.",
 
     // Small line under the buttons for returning / already-booked clients.
-    existing: { text: "Already booked?", label: "Intake form, payment and cancellation policy", href: "/links" },
+    existing: { text: "Already booked?", label: "Intake form, payment and cancellation policy", href: "links" },
 
     ctas: [
       { label: "Book an Appointment", whatsappText: "Hi. I want to book an appointment", style: "primary" },
@@ -459,7 +459,7 @@ const SITE = {
 
     /* "Elsewhere" list. Use href for anything; icon is optional. */
     elsewhere: [
-      { label: "Website",           sub: "armeetnarang.com",                href: "/" },
+      { label: "Website",           sub: "armeetnarang.com",                href: "./" },
       { label: "Instagram",         sub: "@armeetyourtherapist",             href: "https://www.instagram.com/armeetyourtherapist", external: true },
       { label: "Google reviews",    sub: "Read what clients say",            href: "https://g.co/kgs/BqJddrB", external: true },
       { label: "Practo profile",    sub: "Reviews and booking",              href: "https://www.practo.com/pune/therapist/armeet-narang-psychologist/recommended", external: true },
@@ -491,7 +491,7 @@ const SITE = {
       { label: "Instagram", href: "https://www.instagram.com/armeetyourtherapist",                                external: true  },
       { label: "LinkedIn",  href: "https://www.linkedin.com/in/armeet/",                                          external: true  },
       { label: "Practo",    href: "https://www.practo.com/pune/therapist/armeet-narang-psychologist/recommended", external: true  },
-      { label: "Intake & Payment", href: "/links",                                                          external: false },
+      { label: "Intake & Payment", href: "links",                                                           external: false },
       { label: "Email",     href: "mailto:armeet@mindworkscounselling.com",                                       external: false },
     ],
 

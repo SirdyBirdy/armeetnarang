@@ -1,8 +1,8 @@
 # Netlify config for armeetnarang.com
-# Only the /public folder is deployed, so README, this file, etc. are never served.
+# The site lives at the repo root, so the whole repo is published.
 
 [build]
-  publish = "public"
+  publish = "."
 
 # Serve links.html at /links (no ".html" in the shared URL)
 [[redirects]]
@@ -10,10 +10,24 @@
   to     = "/links.html"
   status = 200
 
+# /links/ (trailing slash) -> /links, so relative file paths keep working
 [[redirects]]
   from   = "/links/"
-  to     = "/links.html"
-  status = 200
+  to     = "/links"
+  status = 301
+
+# Repo housekeeping files are not part of the site
+[[redirects]]
+  from   = "/netlify.toml"
+  to     = "/404.html"
+  status = 404
+  force  = true
+
+[[redirects]]
+  from   = "/README.md"
+  to     = "/404.html"
+  status = 404
+  force  = true
 
 # Security headers on every page
 [[headers]]
@@ -24,8 +38,7 @@
     Referrer-Policy        = "strict-origin-when-cross-origin"
     Permissions-Policy     = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
 
-# HTML, JS and the manifest must always revalidate, so edits to content.js /
-# popup.js go live immediately after a deploy (Netlify's default; stated explicitly).
+# HTML, JS and the manifest must always revalidate, so edits go live immediately after a deploy
 [[headers]]
   for = "/*.html"
   [headers.values]
