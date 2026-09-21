@@ -8,7 +8,8 @@ index.html          Homepage (reads all its text from content.js)
 links.html          "Book, pay & policies" page, served at /links
 content.js          ALL editable text, fees, locations, links, intake + policy
 popup.js            Discovery-call popup (config block at the top)
-404.html, robots.txt, sitemap.xml, site.webmanifest, favicons
+404.html, robots.txt, sitemap.xml
+favicons/           Favicons, app icons and site.webmanifest
 images/             Portrait, social-share image, payment QR
 .nojekyll           Tells GitHub Pages to serve files as-is
 ```

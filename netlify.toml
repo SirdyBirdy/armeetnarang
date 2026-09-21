@@ -16,6 +16,17 @@
   to     = "/links"
   status = 301
 
+# Icons moved to /favicons/. Crawlers and old browsers still ask for these two at the site root.
+[[redirects]]
+  from   = "/favicon.ico"
+  to     = "/favicons/favicon.ico"
+  status = 200
+
+[[redirects]]
+  from   = "/apple-touch-icon.png"
+  to     = "/favicons/apple-touch-icon.png"
+  status = 200
+
 # Repo housekeeping files are not part of the site
 [[redirects]]
   from   = "/netlify.toml"
@@ -50,12 +61,17 @@
     Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
-  for = "/site.webmanifest"
+  for = "/favicons/site.webmanifest"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Images change rarely: cache for a day
+# Images and icons change rarely: cache for a day
 [[headers]]
   for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/favicons/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
