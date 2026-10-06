@@ -153,6 +153,7 @@
 
     /* ── ABOUT ── */
     #about { background: var(--warm); }
+    #training { background: var(--warm); }
     #about .container { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
     .about-sticky { position: sticky; top: 120px; }
     .about-tag { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage-ink); margin-bottom: 16px; font-weight: 500; }
@@ -314,6 +315,7 @@
 
     /* ── FAQ ── */
     #faq { background: var(--warm); }
+    #wellbeing { background: var(--warm); }
     .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 780px; margin: 0 auto; }
     .faq-item {
       background: var(--white); border: 1px solid var(--sand);
@@ -594,6 +596,18 @@
   </div>
 </section>
 
+<!-- ══ TRAINING & SUPERVISION ══ -->
+<section id="training">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="about-tag" id="training-tag"></div>
+      <h2 id="training-heading"></h2>
+      <p id="training-sub"></p>
+    </div>
+    <div class="specialties-grid" id="training-grid"></div>
+  </div>
+</section>
+
 <!-- ══ SPECIALTIES ══ -->
 <section id="specialties">
   <div class="container">
@@ -696,6 +710,18 @@
       <h2 id="faq-heading"></h2>
     </div>
     <div class="faq-list fade-up" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ══ WELLBEING ══ -->
+<section id="wellbeing">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="about-tag" id="wellbeing-tag"></div>
+      <h2 id="wellbeing-heading"></h2>
+      <p id="wellbeing-sub"></p>
+    </div>
+    <div class="specialties-grid" id="wellbeing-grid"></div>
   </div>
 </section>
 
@@ -871,12 +897,38 @@ function stars(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); }
   `);
 })();
 
+/* ── Training & Supervision ── */
+(function() {
+  const t = SITE.training;
+  set('training-tag', t.tag);
+  set('training-heading', t.heading);
+  set('training-sub', t.subtext);
+  set('training-grid', t.items.map((item,i)=>`
+    <div class="specialty-card fade-up" style="transition-delay:${(i%3)*0.05}s">
+      <span class="specialty-icon">${item.icon}</span>
+      <h3>${item.title}</h3><p>${item.body}</p>
+    </div>`).join(''));
+})();
+
 /* ── Specialties ── */
 (function() {
   const s = SITE.specialties;
   set('specialties-heading', s.heading);
   set('specialties-sub', s.subtext);
   set('specialties-grid', s.items.map((item,i)=>`
+    <div class="specialty-card fade-up" style="transition-delay:${(i%3)*0.05}s">
+      <span class="specialty-icon">${item.icon}</span>
+      <h3>${item.title}</h3><p>${item.body}</p>
+    </div>`).join(''));
+})();
+
+/* ── Wellbeing ── */
+(function() {
+  const w = SITE.wellbeing;
+  set('wellbeing-tag', w.tag);
+  set('wellbeing-heading', w.heading);
+  set('wellbeing-sub', w.subtext);
+  set('wellbeing-grid', w.items.map((item,i)=>`
     <div class="specialty-card fade-up" style="transition-delay:${(i%3)*0.05}s">
       <span class="specialty-icon">${item.icon}</span>
       <h3>${item.title}</h3><p>${item.body}</p>

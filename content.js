@@ -100,6 +100,33 @@ const SITE = {
   },
 
   /* ══════════════════════════════════════════════════════════
+     TRAINING & SUPERVISION SECTION
+  ══════════════════════════════════════════════════════════ */
+  training: {
+    tag:     "Always learning",
+    heading: "Staying sharp, on purpose",
+    subtext: "Therapy training doesn't end with a degree. Here's what ongoing development actually looks like for me.",
+
+    items: [
+      {
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 7h7M9 11h7"/></svg>`,
+        title: "Certifications & training",
+        body:  "I keep adding to my training year on year: specialised courses and certifications across the modalities I use, not a one-time qualification I stopped updating.",
+      },
+      {
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6"/><path d="M16.5 13.5 19 16l4-4"/></svg>`,
+        title: "Clinical supervision",
+        body:  "Regular, ongoing supervision with senior clinicians, where I bring cases to be reviewed. It's where blind spots get caught before they become a pattern.",
+      },
+      {
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+        title: "Peer consultation",
+        body:  "Case discussions with other therapists, on a regular basis. Another perspective on a case I might be too close to.",
+      },
+    ],
+  },
+
+  /* ══════════════════════════════════════════════════════════
      SPECIALTIES SECTION
   ══════════════════════════════════════════════════════════ */
   specialties: {
@@ -339,6 +366,33 @@ const SITE = {
   },
 
   /* ══════════════════════════════════════════════════════════
+     WELLBEING SECTION  ·  how Armeet avoids burnout
+  ══════════════════════════════════════════════════════════ */
+  wellbeing: {
+    tag:     "Behind the scenes",
+    heading: "How I take care of myself, so I can show up for you",
+    subtext: "A therapist who's stretched too thin isn't fully present for anyone. This is what keeps me from getting there.",
+
+    items: [
+      {
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>`,
+        title: "A capped caseload",
+        body:  "I see a maximum of five clients a day, with proper breaks built in between sessions. Enough space to actually be present in the one in front of me, not just moving through a schedule.",
+      },
+      {
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2"/><path d="m8 21 2-7-3-2 1-5.5 4 1.5 4-1.5 1 5.5-3 2 2 7"/><path d="M9 14h6"/></svg>`,
+        title: "Regular movement",
+        body:  "I work out and play squash regularly. It's part of how I stay level, not something I fit in if there's time left over.",
+      },
+      {
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 3v2.2M12 18.8V21M4.2 4.2l1.55 1.55M18.25 18.25l1.55 1.55M3 12h2.2M18.8 12H21M4.2 19.8l1.55-1.55M18.25 5.75l1.55-1.55"/></svg>`,
+        title: "A real day off",
+        body:  "At least one full day off every week, away from client work entirely, so the rest actually counts.",
+      },
+    ],
+  },
+
+  /* ══════════════════════════════════════════════════════════
      BOOKING / CTA SECTION
   ══════════════════════════════════════════════════════════ */
   booking: {
@@ -477,13 +531,15 @@ const SITE = {
     nav: [
       { label: "Home",        href: "#hero"        },
       { label: "About",       href: "#about"       },
+      { label: "Training",    href: "#training"    },
       { label: "Specialties", href: "#specialties" },
       { label: "Locations",   href: "#locations"   },
       { label: "Fees",        href: "#fees"        },
       { label: "Reviews",     href: "#reviews"     },
       { label: "QueerKey",    href: "#queerkey"    },
-      { label: "FAQ",         href: "#faq"         },
       { label: "Instagram",   href: "#instagram"   },
+      { label: "Wellbeing",   href: "#wellbeing"   },
+      { label: "FAQ",         href: "#faq"         },
     ],
 
     connect: [

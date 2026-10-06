@@ -5,7 +5,7 @@ Static site (no build step). Hosted on Netlify, source on GitHub.
 ```
 netlify.toml        Netlify settings (publishes the repo root, headers, /links rewrite)
 index.html          Homepage (reads all its text from content.js)
-links.html          "Book, pay & policies" page, served at /links
+links.html          "Book, pay & policies" page, served at /links (and /link)
 content.js          ALL editable text, fees, locations, links, intake + policy
 popup.js            Discovery-call popup (config block at the top)
 404.html, robots.txt, sitemap.xml
@@ -19,6 +19,7 @@ images/             Portrait, social-share image, payment QR
 Open `content.js`. Change the text, save, commit, push. Netlify redeploys in under a minute.
 
 - Fees, locations, helplines and social links are written once and reused by both pages.
+- `training` and `wellbeing` are the two homepage sections on ongoing development and burnout prevention — each is a 3-card grid, same shape as `specialties`.
 - The `links` section controls the `/links` page: intake form URL, payment details, cancellation policy.
 - The popup (timing, wording, buttons) is the config block at the top of `popup.js`.
 
